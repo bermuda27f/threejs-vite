@@ -12,3 +12,5 @@ npm install
 ```
 npx vite
 ```
+## demo:
+https://2z8zp8-5173.csb.app/
