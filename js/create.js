@@ -63,8 +63,8 @@ export function init(w, h) {
         const grid = new THREE.GridHelper(
             500, // size
             100, // divisions,
-            color, // center lines
-            color // grid lines
+            color, // color center lines
+            color // color grid lines
         );
         grid.rotation.x = -Math.PI / 2;
         grid.position.z = 0;
@@ -92,14 +92,15 @@ export function init(w, h) {
         let interacting = true;
         const animate = () => {
             if (interacting) {
+                // update canvas:
                 requestAnimationFrame(animate);
-                //controls.update();
                 renderer.render(scene, camera);
             }
         };
 
-        // Listen to the 'change' event to update controls after any changes
+        // check if view exceeds limits
         controls.addEventListener("change", () => {
+            // random values, needs calculation (plan size is reference)
             var min_x = -100;
             var max_x = 100;
             var min_y = -100;
@@ -124,6 +125,7 @@ export function init(w, h) {
             interacting = false;
         });
 
+        // window resize:
         window.addEventListener("resize", () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
