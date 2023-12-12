@@ -98,9 +98,6 @@ export function init(w, h) {
             }
         };
 
-        const maxX = 10; // Set your desired maximum X value
-        const maxY = 5; // Set your desired maximum Y value
-
         // Listen to the 'change' event to update controls after any changes
         controls.addEventListener("change", () => {
             var min_x = -100;
@@ -116,8 +113,6 @@ export function init(w, h) {
 
             controls.target.x = pos_x;
             controls.target.y = pos_y;
-            controls.target.z = 0;
-            controls.update();
         });
 
         controls.addEventListener("start", () => {
