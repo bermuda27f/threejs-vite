@@ -16,6 +16,8 @@ export function init(w, h) {
 
     Promise.all(promiseTextures).then((textures) => {
         // ... if loaded all assets, then start app:
+
+        // set color space for all textures:
         for (let i = 0; i < textures.length; i++) {
             textures[i].colorSpace = THREE.SRGBColorSpace;
         }
