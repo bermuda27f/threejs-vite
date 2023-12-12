@@ -1,6 +1,7 @@
 import * as THREE from "/node_modules/three/";
 import { OrbitControls } from "/node_modules/three/examples/jsm/controls/OrbitControls";
 import assets from "../data/assets.json";
+import * as helper from "./helper.js";
 
 export function init(w, h) {
     const loader = new THREE.TextureLoader();
@@ -13,9 +14,8 @@ export function init(w, h) {
         );
     });
 
-    // ... if, then:
-
     Promise.all(promiseTextures).then((textures) => {
+        // ... if loaded all assets, then start app:
         for (let i = 0; i < textures.length; i++) {
             textures[i].colorSpace = THREE.SRGBColorSpace;
         }
@@ -74,7 +74,7 @@ export function init(w, h) {
         // draw textures / images:
 
         for (let i = 0; i < assets.length; i++) {
-            const texture = textureMesh(textures[i], texSizes[i]);
+            const texture = helper.textureMesh(textures[i], texSizes[i]);
             // positions stored in data/assets.json:
             texture.position.x = assets[i].pos.x;
             texture.position.y = assets[i].pos.y;
@@ -136,20 +136,4 @@ export function init(w, h) {
         });
         renderer.render(scene, camera);
     });
-}
-
-// aux functions
-function textureMesh(texture, texSize) {
-    // Create a material with the texture
-    const material = new THREE.MeshBasicMaterial({
-        transparent: true,
-        map: texture,
-    });
-    // Create a geometry (e.g., a plane)
-    const geometry = new THREE.PlaneGeometry(
-        texSize.width / 15,
-        texSize.height / 15
-    );
-    // Create a mesh with the geometry and material
-    return new THREE.Mesh(geometry, material);
 }
