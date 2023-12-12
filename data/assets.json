@@ -1,0 +1,18 @@
+[
+    {
+        "fileName": "wuerfel_transparent.png",
+        "title": "Wuerfel",
+        "pos": {
+            "x": -10,
+            "y": 10
+        }
+    },
+    {
+        "fileName": "avocado.png",
+        "title": "Avocado",
+        "pos": {
+            "x": 20,
+            "y": 0
+        }
+    }
+]

@@ -1,17 +1,17 @@
 import * as THREE from "/node_modules/three/";
 import { OrbitControls } from "/node_modules/three/examples/jsm/controls/OrbitControls";
+import assets from "../data/assets.json";
 
 export function init(w, h) {
     const loader = new THREE.TextureLoader();
 
     // load assets:
 
-    const promiseTextures = [
-        new Promise((resolve) =>
-            loader.load("img/wuerfel_transparent.png", resolve)
-        ),
-        new Promise((resolve) => loader.load("img/avocado.png", resolve)),
-    ];
+    const promiseTextures = assets.map((asset) => {
+        return new Promise((resolve) =>
+            loader.load(`img/${asset.fileName}`, resolve)
+        );
+    });
 
     // ... if, then:
 
@@ -51,7 +51,7 @@ export function init(w, h) {
         const planeSize = 500;
         const planeGeometry = new THREE.PlaneGeometry(planeSize, planeSize);
         const planeMaterial = new THREE.MeshBasicMaterial({
-            color: 0xffffff, // White color
+            color: 0xffffff, // => white plane
         });
         const plane = new THREE.Mesh(planeGeometry, planeMaterial);
         plane.position.z = -1;
@@ -73,9 +73,11 @@ export function init(w, h) {
 
         // draw textures / images:
 
-        for (let i = 0; i < textures.length; i++) {
+        for (let i = 0; i < assets.length; i++) {
             const texture = textureMesh(textures[i], texSizes[i]);
-            texture.position.x = (width / 100) * (i * 0.5);
+            // positions stored in data/assets.json:
+            texture.position.x = assets[i].pos.x;
+            texture.position.y = assets[i].pos.y;
             scene.add(texture);
         }
 
