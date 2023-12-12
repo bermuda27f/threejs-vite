@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls'
 
 export function init(w, h) {
     const loader = new THREE.TextureLoader();
@@ -108,7 +108,7 @@ export function init(w, h) {
         });
 
         window.addEventListener("resize", () => {
-            camera.aspect = window.innerWidth / window.innerHeight
+            camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.render(scene, camera);
