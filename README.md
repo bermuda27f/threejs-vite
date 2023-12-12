@@ -6,5 +6,5 @@ simple three.js playground
 - open a terminal app, navigate to the repository
 - start local server with 
 ```
-npx serve
+npx vite
 ```
