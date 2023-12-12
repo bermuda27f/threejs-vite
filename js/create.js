@@ -1,0 +1,134 @@
+import * as THREE from "three";
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+export function init(w, h) {
+    const loader = new THREE.TextureLoader();
+
+    // load assets:
+
+    const promiseTextures = [
+        new Promise((resolve) =>
+            loader.load("img/wuerfel_transparent.png", resolve)
+        ),
+        new Promise((resolve) => loader.load("img/avocado.png", resolve)),
+    ];
+
+    // ... if, then:
+
+    Promise.all(promiseTextures).then((textures) => {
+        for (let i = 0; i < textures.length; i++) {
+            textures[i].colorSpace = THREE.SRGBColorSpace;
+        }
+
+        // get texture sizes
+        const texSizes = textures.map((t) => {
+            return {
+                width: t.image.width,
+                height: t.image.height,
+            };
+        });
+
+        // init scen:
+        const scene = new THREE.Scene();
+
+        // set canvas size:
+        const width = w;
+        const height = h;
+
+        // initial camera settings
+        const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
+        camera.position.set(0, 0, 50);
+        camera.lookAt(scene.position);
+
+        // renderer
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(width, height);
+
+        // append the scene
+        document.body.appendChild(renderer.domElement);
+
+        // white background plane
+        const planeSize = 200;
+        const planeGeometry = new THREE.PlaneGeometry(planeSize, planeSize);
+        const planeMaterial = new THREE.MeshBasicMaterial({
+            color: 0xffffff, // White color
+        });
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.position.z = -1;
+
+        scene.add(plane);
+
+        // draw a grid
+        const color = new THREE.Color(0.5, 0.5, 0.5);
+        const grid = new THREE.GridHelper(
+            500, // size
+            100, // divisions,
+            color, // center lines
+            color // grid lines
+        );
+        grid.rotation.x = -Math.PI / 2;
+        grid.position.z = 0;
+
+        scene.add(grid);
+
+        // draw textures / images:
+
+        for (let i = 0; i < textures.length; i++) {
+            const texture = textureMesh(textures[i], texSizes[i]);
+            texture.position.x = (width / 100) * (i * 0.5);
+            scene.add(texture);
+        }
+
+        // create OrbitControls
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enablePan = true;
+        controls.touches.ONE = THREE.TOUCH.PAN;
+        controls.enableZoom = true;
+        controls.enableRotate = false;
+        controls.maxDistance = 100;
+        controls.target.set(0, 0, 0); // Set the center of rotation
+
+        // add event listeners
+        let interacting = true;
+        const animate = () => {
+            if (interacting) {
+                requestAnimationFrame(animate);
+                //controls.update();
+                renderer.render(scene, camera);
+            }
+        };
+
+        controls.addEventListener("start", () => {
+            interacting = true;
+            animate();
+        });
+
+        controls.addEventListener("end", () => {
+            interacting = false;
+        });
+
+        window.addEventListener("resize", () => {
+            camera.aspect = window.innerWidth / window.innerHeight
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.render(scene, camera);
+        });
+        renderer.render(scene, camera);
+    });
+}
+
+// aux functions
+function textureMesh(texture, texSize) {
+    // Create a material with the texture
+    const material = new THREE.MeshBasicMaterial({
+        transparent: true,
+        map: texture,
+    });
+    // Create a geometry (e.g., a plane)
+    const geometry = new THREE.PlaneGeometry(
+        texSize.width / 15,
+        texSize.height / 15
+    );
+    // Create a mesh with the geometry and material
+    return new THREE.Mesh(geometry, material);
+}
