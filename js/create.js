@@ -1,5 +1,5 @@
 import * as THREE from "/node_modules/three/";
-import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from "/node_modules/three/examples/jsm/controls/OrbitControls";
 
 export function init(w, h) {
     const loader = new THREE.TextureLoader();
@@ -48,7 +48,7 @@ export function init(w, h) {
         document.body.appendChild(renderer.domElement);
 
         // white background plane
-        const planeSize = 200;
+        const planeSize = 500;
         const planeGeometry = new THREE.PlaneGeometry(planeSize, planeSize);
         const planeMaterial = new THREE.MeshBasicMaterial({
             color: 0xffffff, // White color
@@ -97,6 +97,28 @@ export function init(w, h) {
                 renderer.render(scene, camera);
             }
         };
+
+        const maxX = 10; // Set your desired maximum X value
+        const maxY = 5; // Set your desired maximum Y value
+
+        // Listen to the 'change' event to update controls after any changes
+        controls.addEventListener("change", () => {
+            var min_x = -100;
+            var max_x = 100;
+            var min_y = -100;
+            var max_y = 100;
+
+            let pos_x = Math.min(max_x, Math.max(min_x, camera.position.x));
+            let pos_y = Math.min(max_y, Math.max(min_y, camera.position.y));
+
+            camera.position.set(pos_x, pos_y, camera.position.z);
+            camera.lookAt(pos_x, pos_y, controls.target.z);
+
+            controls.target.x = pos_x;
+            controls.target.y = pos_y;
+            controls.target.z = 0;
+            controls.update();
+        });
 
         controls.addEventListener("start", () => {
             interacting = true;
