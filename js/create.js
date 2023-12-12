@@ -104,7 +104,7 @@ export function init(w, h) {
 
         // check if view exceeds limits
         controls.addEventListener("change", () => {
-            // random values, needs calculation (plan size is reference)
+            // random values, needs calculation (plane-size is reference)
             var min_x = -100;
             var max_x = 100;
             var min_y = -100;
