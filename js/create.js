@@ -33,18 +33,14 @@ export function init(w, h) {
         // init scen:
         const scene = new THREE.Scene();
 
-        // set canvas size:
-        const width = w;
-        const height = h;
-
         // initial camera settings
-        const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
+        const camera = new THREE.PerspectiveCamera(45, w / h, 1, 1000);
         camera.position.set(0, 0, 50);
         camera.lookAt(scene.position);
 
         // renderer
         const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(width, height);
+        renderer.setSize(w, h);
 
         // append the scene
         document.body.appendChild(renderer.domElement);
