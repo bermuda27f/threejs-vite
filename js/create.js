@@ -42,7 +42,7 @@ export function init(w, h) {
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(w, h);
 
-        // append the scene
+        // remove loade, append the scene
         helper.removeLoader();
         document.body.appendChild(renderer.domElement);
 
@@ -84,6 +84,7 @@ export function init(w, h) {
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enablePan = true;
         controls.touches.ONE = THREE.TOUCH.PAN;
+        controls.touches.TWO = THREE.TOUCH.PAN;
         controls.enableZoom = true;
         controls.enableRotate = false;
         controls.maxDistance = 100;
