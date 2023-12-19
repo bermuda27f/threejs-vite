@@ -85,7 +85,6 @@ export function init(w, h) {
         controls.enablePan = true;
         controls.mouseButtons.LEFT = THREE.MOUSE.PAN
         controls.touches.TWO = THREE.TOUCH.PAN;
-        controls.enableDamping = true;
         controls.enableZoom = true;
         controls.enableRotate = false;
         controls.maxDistance = 100;
@@ -97,7 +96,6 @@ export function init(w, h) {
             if (interacting) {
                 // update canvas:
                 requestAnimationFrame(animate);
-                controls.update()
                 renderer.render(scene, camera);
             }
         };
