@@ -6,12 +6,28 @@
             body {
                 margin: 0;
             }
+
+            #loader {
+                text-align: center;
+                font-size: 2em;
+                height: 100%;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
         </style>
         <script type="module">
             import { init } from "./js/create.js";
+            import { loader } from "./js/helper.js";
+            let interval;
+            loader(interval);
             init(window.innerWidth, window.innerHeight);
         </script>
-
     </head>
-    <body></body>
+    <body>
+        <div id="loader"></div>
+    </div>
+    </body>
 </html>

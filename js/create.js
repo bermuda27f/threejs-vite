@@ -43,6 +43,7 @@ export function init(w, h) {
         renderer.setSize(w, h);
 
         // append the scene
+        helper.removeLoader();
         document.body.appendChild(renderer.domElement);
 
         // white background plane
