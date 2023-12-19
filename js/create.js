@@ -83,8 +83,7 @@ export function init(w, h) {
         // create OrbitControls
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enablePan = true;
-        controls.mouseButtons.LEFT = THREE.MOUSE.PAN
-        controls.touches.TWO = THREE.TOUCH.PAN;
+        controls.touches.ONE = THREE.TOUCH.PAN;
         controls.enableZoom = true;
         controls.enableRotate = false;
         controls.maxDistance = 100;
