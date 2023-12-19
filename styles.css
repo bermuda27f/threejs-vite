@@ -14,6 +14,7 @@ body {
 }
 #infoBox {
     position: fixed;
+    font-size: medium;
     bottom: 10px;
     right: 10px;
     background-color: #3498db;
