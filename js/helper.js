@@ -10,8 +10,8 @@ export function textureMesh(texture, texSize) {
     });
     // Create a geometry (e.g., a plane)
     const geometry = new THREE.PlaneGeometry(
-        texSize.width / 15,
-        texSize.height / 15
+        texSize.width / 30,
+        texSize.height / 30
     );
     // Create a mesh with the geometry and material
     return new THREE.Mesh(geometry, material);

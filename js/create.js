@@ -35,7 +35,7 @@ export function init(w, h) {
 
         // initial camera settings
         const camera = new THREE.PerspectiveCamera(45, w / h, 1, 1000);
-        camera.position.set(0, 0, 50);
+        camera.position.set(0, 0, 100);
         camera.lookAt(scene.position);
 
         // renderer
@@ -58,10 +58,10 @@ export function init(w, h) {
         scene.add(plane);
 
         // draw a grid
-        const color = new THREE.Color(0.5, 0.5, 0.5);
+        const color = new THREE.Color(0.7, 0.7, 0.7);
         const grid = new THREE.GridHelper(
             500, // size
-            100, // divisions,
+            150, // divisions,
             color, // color center lines
             color // color grid lines
         );
@@ -86,7 +86,8 @@ export function init(w, h) {
         controls.touches.ONE = THREE.TOUCH.PAN;
         controls.enableZoom = true;
         controls.enableRotate = false;
-        controls.maxDistance = 100;
+        controls.maxDistance = 300;
+        controls.minDistance = 50;
         controls.target.set(0, 0, 0); // Set the center of rotation
 
         // add event listeners
