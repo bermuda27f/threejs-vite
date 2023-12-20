@@ -12,15 +12,15 @@
         "title": "Header",
         "pos": {
             "x": -3,
-            "y": 12
+            "y": 2
         }
     },
     {
         "fileName": "tomate_3.jpg",
         "title": "Tomate Beispiel",
         "pos": {
-            "x": 62,
-            "y": -149
+            "x": 1.25,
+            "y": -109
         }
     }
 ]

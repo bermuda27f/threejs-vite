@@ -47,7 +47,7 @@ export function init(w, h) {
         document.body.appendChild(renderer.domElement);
 
         // white background plane
-        const planeSize = 500;
+        const planeSize = 1000;
         const planeGeometry = new THREE.PlaneGeometry(planeSize, planeSize);
         const planeMaterial = new THREE.MeshBasicMaterial({
             color: 0xffffff, // => white plane
@@ -60,8 +60,8 @@ export function init(w, h) {
         // draw a grid
         const color = new THREE.Color(0.7, 0.7, 0.7);
         const grid = new THREE.GridHelper(
-            500, // size
-            150, // divisions,
+            1000, // size
+            300, // divisions,
             color, // color center lines
             color // color grid lines
         );
